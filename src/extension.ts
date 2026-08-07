@@ -44,8 +44,6 @@ export function activate(context: vscode.ExtensionContext) {
 				const document = await vscode.workspace.openTextDocument(lines[1]);
 				vscode.window.showTextDocument(document, vscode.ViewColumn.Active, true, );
 			});
-
-			// Question: Wie bekomme ich x path aus der liste
 		}
 	});
 
