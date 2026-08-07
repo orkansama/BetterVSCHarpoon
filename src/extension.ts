@@ -42,7 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 				const lines = data.split('\n');
 				const document = await vscode.workspace.openTextDocument(lines[1]);
-				vscode.window.showTextDocument(document, vscode.ViewColumn.Active, true, );
+				vscode.window.showTextDocument(document, vscode.ViewColumn.One, false);
 			});
 		}
 	});
