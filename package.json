@@ -14,8 +14,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "bettervscharpoon.helloWorld",
-        "title": "Hello World"
+        "command": "bettervscharpoon.add_to_harpoon_list",
+        "title": "add_to_harpoon_list"
+      },
+      {
+        "command": "bettervscharpoon.navigate_1",
+        "title": "navigate_1"
       }
     ]
   },

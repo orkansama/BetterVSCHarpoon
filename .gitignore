@@ -1,1 +1,6 @@
 node_modules
+.vscode-test/extensions
+.vscode-test/user-data
+.vscode-test/vscode-win32-x64-archive-1.132.0
+dist
+out
