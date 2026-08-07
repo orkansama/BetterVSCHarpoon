@@ -37,11 +37,12 @@ export function activate(context: vscode.ExtensionContext) {
 				"better_harpoon_list.txt" // TODO: Change path
 			);
 
-			fs.readFile('./Index.html', 'utf8', (err, data) => {
+			fs.readFile(harpoonList.fsPath, 'utf8', async(err, data) => {
 				if (err) throw err;
 
 				const lines = data.split('\n');
-				vscode.workspace.openTextDocument(vscode.Uri.file(lines[1]))
+				const document = await vscode.workspace.openTextDocument(lines[1]);
+				vscode.window.showTextDocument(document, vscode.ViewColumn.Active, true, );
 			});
 
 			// Question: Wie bekomme ich x path aus der liste
