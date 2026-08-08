@@ -23,7 +23,7 @@ function registerJumpCommand(indexToRegister: number, harpoonListPath: string) {
 export function activate(context: vscode.ExtensionContext) {
 	vscode.workspace.fs.createDirectory(context.globalStorageUri);
 	const harpoonListPath = `${context.globalStorageUri.fsPath}${path.sep}better_harpoon_list.txt`;
-	fs.writeFileSync(harpoonListPath, "")
+	fs.openSync(harpoonListPath, 'a')
 
 	const addHarpoonFileCommand = vscode.commands.registerCommand('bettervscharpoon.add_to_harpoon_list', () => {
 		const activeEditor = vscode.window.activeTextEditor;
