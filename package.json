@@ -24,6 +24,34 @@
       {
         "command": "bettervscharpoon.navigate_2",
         "title": "bettervscharpoon.navigate_2"
+      },
+      {
+        "command": "bettervscharpoon.navigate_3",
+        "title": "bettervscharpoon.navigate_3"
+      },
+      {
+        "command": "bettervscharpoon.navigate_4",
+        "title": "bettervscharpoon.navigate_4"
+      },
+      {
+        "command": "bettervscharpoon.navigate_5",
+        "title": "bettervscharpoon.navigate_5"
+      },
+      {
+        "command": "bettervscharpoon.navigate_6",
+        "title": "bettervscharpoon.navigate_6"
+      },
+      {
+        "command": "bettervscharpoon.navigate_7",
+        "title": "bettervscharpoon.navigate_7"
+      },
+      {
+        "command": "bettervscharpoon.navigate_8",
+        "title": "bettervscharpoon.navigate_8"
+      },
+      {
+        "command": "bettervscharpoon.navigate_9",
+        "title": "bettervscharpoon.navigate_9"
       }
     ]
   },
