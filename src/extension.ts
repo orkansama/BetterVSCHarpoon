@@ -10,13 +10,36 @@ export function getHarpoonListPath(): string | undefined {
 
 	const harpoonList = vscode.Uri.joinPath(
 		workspaceFolder.uri,
-		"better_harpoon_list.txt") // TODO: Change path
+		"better_harpoon_list.txt");
 
 	return harpoonList.fsPath;
 }
 
+function registerJumpCommand(indexToRegister: number): any {
+	const harpoonListPath = getHarpoonListPath();
+	if (harpoonListPath == undefined) {
+		return;
+	}
+
+	fs.readFile(harpoonListPath, 'utf8', async (err, data) => {
+		if (err) {
+			return;
+		}
+
+		const lines = data.split('\n');
+		try {
+
+			const document = await vscode.workspace.openTextDocument(lines[indexToRegister]);
+			vscode.window.showTextDocument(document, vscode.ViewColumn.One, false);
+		}
+		catch {
+			vscode.window.showErrorMessage("Could not open the requested file!");
+		}
+	});
+};
+
 export function activate(context: vscode.ExtensionContext) {
-	const addCommand = vscode.commands.registerCommand('bettervscharpoon.add_to_harpoon_list', () => {
+	const addHarpoonFileCommand = vscode.commands.registerCommand('bettervscharpoon.add_to_harpoon_list', () => {
 		const harpoonListPath = getHarpoonListPath();
 		if (harpoonListPath == undefined) {
 			return;
@@ -34,34 +57,27 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	});
 
-	function registerJumpCommand(indexToRegister: number): any {
+	const openHarpoonFileCommand = vscode.commands.registerCommand('bettervscharpoon.open_harpoon_list', async () => {
 		const harpoonListPath = getHarpoonListPath();
 		if (harpoonListPath == undefined) {
 			return;
 		}
 
-		fs.readFile(harpoonListPath, 'utf8', async (err, data) => {
-			if (err) {
-				return;
-			}
-
-			const lines = data.split('\n');
-			try {
-
-				const document = await vscode.workspace.openTextDocument(lines[indexToRegister]);
-				vscode.window.showTextDocument(document, vscode.ViewColumn.One, false);
-			}
-			catch {
-				vscode.window.showErrorMessage("Could not open the requested file!");
-			}
-		});
-	};
+		try {
+			const harpoonFile = await vscode.workspace.openTextDocument(harpoonListPath);
+			vscode.window.showTextDocument(harpoonFile, vscode.ViewColumn.One, false);
+		}
+		catch {
+			vscode.window.showErrorMessage("Could not open Harpoon list!");
+		}
+	});
 
 	for (let i = 0; i < 9; i++) {
 		const jumpCommand = vscode.commands.registerCommand(`bettervscharpoon.navigate_${i + 1}`, () => registerJumpCommand(i));
 
 		context.subscriptions.push(
-			addCommand,
+			addHarpoonFileCommand,
+			openHarpoonFileCommand,
 			jumpCommand
 		);
 	};
