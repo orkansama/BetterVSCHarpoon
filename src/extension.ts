@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 export function getHarpoonListPath(): string | undefined {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
 	if (!workspaceFolder) {
+		vscode.window.showInformationMessage('Harpoon List Error!');
 		return undefined;
 	};
 
@@ -15,10 +16,7 @@ export function getHarpoonListPath(): string | undefined {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "bettervscharpoon" is now active!');
-
 	const addCommand = vscode.commands.registerCommand('bettervscharpoon.add_to_harpoon_list', () => {
-		vscode.window.showInformationMessage('Hello World from BetterVSCHarpoon!');
 		const harpoonListPath = getHarpoonListPath();
 		if (harpoonListPath == undefined) {
 			return;
