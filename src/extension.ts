@@ -41,11 +41,19 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		fs.readFile(harpoonListPath, 'utf8', async (err, data) => {
-			if (err) throw err;
+			if (err) {
+				return;
+			}
 
 			const lines = data.split('\n');
-			const document = await vscode.workspace.openTextDocument(lines[indexToRegister]);
-			vscode.window.showTextDocument(document, vscode.ViewColumn.One, false);
+			try {
+
+				const document = await vscode.workspace.openTextDocument(lines[indexToRegister]);
+				vscode.window.showTextDocument(document, vscode.ViewColumn.One, false);
+			}
+			catch {
+				vscode.window.showErrorMessage("Could not open the requested file!");
+			}
 		});
 	};
 
