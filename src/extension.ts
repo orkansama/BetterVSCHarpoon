@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as vscode from 'vscode';
 import * as path from 'path';
 
-function registerJumpCommand(indexToRegister: number, harpoonListPath: string): any {
+function registerJumpCommand(indexToRegister: number, harpoonListPath: string) {
 	fs.readFile(harpoonListPath, 'utf8', async (err, data) => {
 		if (err) {
 			vscode.window.showErrorMessage("Could not read harpoon list");
@@ -23,6 +23,7 @@ function registerJumpCommand(indexToRegister: number, harpoonListPath: string): 
 export function activate(context: vscode.ExtensionContext) {
 	vscode.workspace.fs.createDirectory(context.globalStorageUri);
 	const harpoonListPath = `${context.globalStorageUri.fsPath}${path.sep}better_harpoon_list.txt`;
+	fs.writeFileSync(harpoonListPath, "")
 
 	const addHarpoonFileCommand = vscode.commands.registerCommand('bettervscharpoon.add_to_harpoon_list', () => {
 		const activeEditor = vscode.window.activeTextEditor;
