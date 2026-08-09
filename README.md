@@ -1,11 +1,9 @@
-# bettervscharpoon README
+# BetterVSCHarpoon README
 
-A port of ThePrimeagen's Harpoon, brought to VS Code. Mark files, jump between them instantly with dedicated keybindings — no menus, no fuzzy search, just the files you're actively working on, one keystroke away.
-
-There are already a few Harpoon ports out there — this one's goal is to JUST WORK. 
+A port of ThePrimeagen's Harpoon, brought to VS Code. Mark files, jump between them instantly with dedicated keybindings.<br>
+No menus, no fuzzy search, just the files you're actively working on, one keystroke away.<br>
 Your marks live in a plain text file you can open and edit directly, not some fancy custom menu (I know you use vim motions).
 
-> [!WARNING]
 > Leave the last line of the marks file **empty**. Otherwise the last entry won't be picked up correctly.
 
 ## Motivation
