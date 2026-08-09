@@ -5,6 +5,9 @@ A port of ThePrimeagen's Harpoon, brought to VS Code. Mark files, jump between t
 There are already a few Harpoon ports out there — this one's goal is to JUST WORK. 
 Your marks live in a plain text file you can open and edit directly, not some fancy custom menu (I know you use vim motions).
 
+> [!WARNING]
+> Leave the last line of the marks file **empty**. Otherwise the last entry won't be picked up correctly.
+
 ## Motivation
 
 There are plenty of Harpoon extensions out there already — but most are either unmaintained, mark the exact line you were on (not just the file), or simply weren't what I wanted: something simple.
