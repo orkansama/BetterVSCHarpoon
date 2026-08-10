@@ -6,6 +6,8 @@ Your marks live in a plain text file you can open and edit directly, not some fa
 
 > Leave the last line of the marks file **empty**. Otherwise the last entry won't be picked up correctly.
 
+>  **Restart VS Code after installing** the extension — commands won't work until you do.
+
 <img width="530" height="112" alt="grafik" src="https://github.com/user-attachments/assets/e6846e68-86fe-4a15-b0cb-0649e694f2f3" />
 
 
@@ -36,6 +38,7 @@ None
 ## Known Issues
 
 - The last line of the marks file must be left **empty**, otherwise the last entry won't be picked up correctly. I'll fix this properly at some point, but I need the extension working for myself right now, so it stays as is for the time being.
+- **Restart VS Code after installing** the extension — commands won't work until you do.
 
 ## Contributing
 
