@@ -33,3 +33,9 @@ None
 ## Known Issues
 
 - The last line of the marks file must be left **empty**, otherwise the last entry won't be picked up correctly. I'll fix this properly at some point, but I need the extension working for myself right now, so it stays as is for the time being.
+
+## Contributing
+
+Found a bug or have an idea for a feature? Issues and pull requests are welcome on [GitHub](https://github.com/orkansama/BetterVSCHarpoon).
+
+This is a small side project I built mainly for myself, so response times might vary — but feedback is always appreciated.
