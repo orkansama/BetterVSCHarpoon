@@ -26,6 +26,10 @@ There are plenty of Harpoon extensions out there already — but most are either
 
 None of these commands come with a default keybinding — assign the ones you actually use.
 
+## Dependencies
+
+None
+
 ## Known Issues
 
 - The last line of the marks file must be left **empty**, otherwise the last entry won't be picked up correctly. I'll fix this properly at some point, but I need the extension working for myself right now, so it stays as is for the time being.
