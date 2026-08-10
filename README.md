@@ -6,6 +6,9 @@ Your marks live in a plain text file you can open and edit directly, not some fa
 
 > Leave the last line of the marks file **empty**. Otherwise the last entry won't be picked up correctly.
 
+<img width="530" height="112" alt="grafik" src="https://github.com/user-attachments/assets/e6846e68-86fe-4a15-b0cb-0649e694f2f3" />
+
+
 ## Motivation
 
 There are plenty of Harpoon extensions out there already — but most are either unmaintained, mark the exact line you were on (not just the file), or simply weren't what I wanted: something simple.
