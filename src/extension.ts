@@ -10,8 +10,11 @@ function registerJumpCommand(indexToRegister: number, harpoonListPath: string) {
 
 		const lines = data.split('\n');
 		try {
-
-			const document = await vscode.workspace.openTextDocument(lines[indexToRegister]);
+			const document: vscode.TextDocument = await vscode.workspace.openTextDocument(lines[indexToRegister]);
+			if (document.isUntitled) {
+				vscode.window.showErrorMessage("Could not open the requested file!");
+				return;
+			}
 			vscode.window.showTextDocument(document, vscode.ViewColumn.One, false);
 		}
 		catch {
