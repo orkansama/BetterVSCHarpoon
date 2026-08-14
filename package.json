@@ -1,8 +1,8 @@
 {
   "name": "bettervscharpoon",
   "displayName": "BetterVSCHarpoon",
-  "description": "Harpoon for VSC but (hopefully) working!",
-  "version": "0.0.2",
+  "description": "Harpoon for VSC, made txt simple!",
+  "version": "v1.0.0",
   "engines": {
     "vscode": "^1.125.0"
   },
