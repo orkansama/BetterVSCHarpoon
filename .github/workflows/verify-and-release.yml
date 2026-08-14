@@ -1,11 +1,11 @@
 name: Verify-and-Release
 on:
-  pull_request:
+  pull:
     branches:
       - main
 
 permissions:
-  contents: read # for checkout
+  contents: read
 
 jobs:
   verify:
@@ -30,10 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: verify
     permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for trusted publishing and npm provenance
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,4 +50,4 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release # <- The Run Commnand
+        run: npx semantic-release
