@@ -1,6 +1,6 @@
 name: Verify-and-Release
 on:
-  pull:
+  push:
     branches:
       - main
 
