@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.0...v1.0.1) (2026-08-14)
+
+
+### Bug Fixes
+
+* fixed opening of empty lines ([5861cf4](https://github.com/orkansama/BetterVSCHarpoon/commit/5861cf4877374fe1b6aa200317f6d92d96ae373a))
+
 # 1.0.0 (2026-08-14)
 
 
