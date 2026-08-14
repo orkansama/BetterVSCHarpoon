@@ -2,9 +2,9 @@ name: Verify-and-Release
 on:
   push:
     branches:
-      - main # or master
+      - main
   pull_request:
-      - main # or master
+      - main
 
 permissions:
   contents: read # for checkout
