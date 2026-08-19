@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.1...v1.0.2) (2026-08-19)
+
+
+### Bug Fixes
+
+* fixed need to restart on extension install ([765ad6f](https://github.com/orkansama/BetterVSCHarpoon/commit/765ad6f6bada877c55352467053e81de1dde9c5c))
+
 ## [1.0.1](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.0...v1.0.1) (2026-08-14)
 
 
