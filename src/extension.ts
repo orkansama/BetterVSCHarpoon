@@ -24,11 +24,18 @@ function registerJumpCommand(indexToRegister: number, harpoonListPath: string) {
 };
 
 export function activate(context: vscode.ExtensionContext) {
-	vscode.workspace.fs.createDirectory(context.globalStorageUri);
-	const harpoonListPath = `${context.globalStorageUri.fsPath}${path.sep}better_harpoon_list.txt`;  
-	fs.openSync(harpoonListPath, 'a')
+	const harpoonListDirectory: string = context.globalStorageUri.fsPath;
+	const harpoonListPath: string = `${harpoonListDirectory}${path.sep}better_harpoon_list.txt`;
+	fs.mkdir(harpoonListDirectory, { recursive: true }, (err) => {
+		if (err) throw err;
+
+		fs.open(harpoonListPath, 'a', (err) => {
+			if (err) throw err;
+		})
+	});
 
 	const addHarpoonFileCommand = vscode.commands.registerCommand('bettervscharpoon.add_to_harpoon_list', () => {
+
 		const activeEditor = vscode.window.activeTextEditor;
 		if (activeEditor == undefined) {
 			return;
