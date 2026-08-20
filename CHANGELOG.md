@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.2...v1.0.3) (2026-08-20)
+
+
+### Bug Fixes
+
+* opening a empty line no longer gives an error ([9e5f223](https://github.com/orkansama/BetterVSCHarpoon/commit/9e5f2238b5b709f955e292924b601ca58a74cb2c))
+
 ## [1.0.2](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.1...v1.0.2) (2026-08-19)
 
 
