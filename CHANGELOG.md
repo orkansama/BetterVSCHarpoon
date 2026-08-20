@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.4...v1.0.5) (2026-08-20)
+
+### refactor
+
+* test ([6f3976c](https://github.com/orkansama/BetterVSCHarpoon/commit/6f3976c9e0e536a235c650911f5534df7ef6e224))
+
 ## [1.0.4](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.3...v1.0.4) (2026-08-20)
 
 ### Internal
