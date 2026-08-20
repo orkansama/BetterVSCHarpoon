@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.3...v1.0.4) (2026-08-20)
+
+### Internal
+
+* bumbed up version number ([bf63d3c](https://github.com/orkansama/BetterVSCHarpoon/commit/bf63d3ccdf6df93390186cbb4898c83fd78f904c))
+
 ## [1.0.3](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.2...v1.0.3) (2026-08-20)
 
 

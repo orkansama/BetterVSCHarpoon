@@ -99,5 +99,8 @@
     "type": "git",
     "url": "git+https://github.com/orkansama/BetterVSCHarpoon"
   },
-  "publisher": "OrkanGoekcen"
+  "publisher": "OrkanGoekcen",
+  "dependencies": {
+    "conventional-changelog-conventionalcommits": "^9.3.1"
+  }
 }
