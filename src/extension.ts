@@ -12,13 +12,12 @@ function registerJumpCommand(indexToRegister: number, harpoonListPath: string) {
 		try {
 			const document: vscode.TextDocument = await vscode.workspace.openTextDocument(lines[indexToRegister]);
 			if (document.isUntitled) {
-				vscode.window.showErrorMessage("Could not open the requested file!");
 				return;
 			}
 			vscode.window.showTextDocument(document, vscode.ViewColumn.One, false);
 		}
 		catch {
-			vscode.window.showErrorMessage("Could not open the requested file!");
+			vscode.window.showErrorMessage("Path is empty.");
 		}
 	});
 };
