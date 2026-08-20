@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.5...v1.0.6) (2026-08-20)
+
+### docs
+
+* **readme:** added notice for shared global list ([88adb5d](https://github.com/orkansama/BetterVSCHarpoon/commit/88adb5da3b6214322d19c0059010aed7c85b681d))
+
 ## [1.0.5](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.4...v1.0.5) (2026-08-20)
 
 ### refactor
