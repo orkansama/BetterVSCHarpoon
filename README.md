@@ -4,6 +4,8 @@ A port of ThePrimeagen's Harpoon, brought to VS Code. Mark files, jump between t
 No menus, no fuzzy search, just the files you're actively working on, one keystroke away.<br>
 Your marks live in a plain text file you can open and edit directly, not some fancy custom menu (I know you use vim motions).
 
+Currently, only one global list is supported.
+
 > Leave the last line of the marks file **empty**. Otherwise the last entry won't be picked up correctly.
 
 <img width="530" height="112" alt="grafik" src="https://github.com/user-attachments/assets/e6846e68-86fe-4a15-b0cb-0649e694f2f3" />
