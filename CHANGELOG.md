@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.8...v1.1.0) (2026-08-25)
+
+### Features
+
+* package version bumbed releaserc test ([4d53b11](https://github.com/orkansama/BetterVSCHarpoon/commit/4d53b11d37e4e83dd14e8e58304c6c590cccabdb))
+
 ## [1.0.8](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.7...v1.0.8) (2026-08-25)
 
 ### Bug Fixes
