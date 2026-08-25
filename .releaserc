@@ -43,6 +43,14 @@
                 "presetConfig": {
                     "types": [
                         {
+                            "type": "feat",
+                            "release": "Features"
+                        },
+                        {
+                            "type": "fix",
+                            "release": "Bug Fixes"
+                        },
+                        {
                             "type": "refactor",
                             "section": "refactor",
                             "hidden": false
