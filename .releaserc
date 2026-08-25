@@ -44,11 +44,11 @@
                     "types": [
                         {
                             "type": "feat",
-                            "release": "Features"
+                            "section": "Features"
                         },
                         {
                             "type": "fix",
-                            "release": "Bug Fixes"
+                            "section": "Bug Fixes"
                         },
                         {
                             "type": "refactor",
