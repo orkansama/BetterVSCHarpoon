@@ -1,3 +1,11 @@
+## [1.0.8](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.7...v1.0.8) (2026-08-25)
+
+* releaserc corrected ([4e408f8](https://github.com/orkansama/BetterVSCHarpoon/commit/4e408f8c61df042f2eec8bc408fd26cee1055c1a))
+
+### docs
+
+* **no-release:** bumbed up version number ([e04ecac](https://github.com/orkansama/BetterVSCHarpoon/commit/e04ecac442ee6b1a5acd7cf54766fc8e90be5378))
+
 ## [1.0.7](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.6...v1.0.7) (2026-08-25)
 
 ## [1.0.6](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.5...v1.0.6) (2026-08-20)
