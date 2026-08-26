@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.1.0...v1.1.1) (2026-08-26)
+
+### refactor
+
+* add icon for extension page ([378d91d](https://github.com/orkansama/BetterVSCHarpoon/commit/378d91d855b3a7fa28f6814a98caf3545cd84072))
+
 ## [1.1.0](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.0.8...v1.1.0) (2026-08-25)
 
 ### Features
