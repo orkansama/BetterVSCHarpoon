@@ -1,3 +1,9 @@
+## [2.0.2](https://github.com/orkansama/BetterVSCHarpoon/compare/v2.0.1...v2.0.2) (2026-09-02)
+
+### Bug Fixes
+
+* dual/split window harpoon interaction fix ([f3471a7](https://github.com/orkansama/BetterVSCHarpoon/commit/f3471a739cb2f221cac4c6cb248f39e69a699135))
+
 ## [2.0.1](https://github.com/orkansama/BetterVSCHarpoon/compare/v2.0.0...v2.0.1) (2026-09-02)
 
 ### docs
