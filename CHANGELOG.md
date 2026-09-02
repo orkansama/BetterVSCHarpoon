@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/orkansama/BetterVSCHarpoon/compare/v2.0.0...v2.0.1) (2026-09-02)
+
+### docs
+
+* **readme:** add batches ([74ee084](https://github.com/orkansama/BetterVSCHarpoon/commit/74ee084ac1136adca98bdc41c15333d3dd241d21))
+
 ## [2.0.0](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.1.1...v2.0.0) (2026-09-02)
 
 ### ⚠ BREAKING CHANGES
