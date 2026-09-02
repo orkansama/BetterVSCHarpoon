@@ -1,3 +1,17 @@
+## [2.0.0](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.1.1...v2.0.0) (2026-09-02)
+
+### ⚠ BREAKING CHANGES
+
+* New default behavior, relative file navigation
+
+The extension no longer behaves like "normal" for old users.
+User needs to do nothing for the new behavior, but he can disable
+it with "BetterVSCHarpoon.DisableRelativeFilePath".
+
+### Features
+
+* add relative file path navigation ([ed10bca](https://github.com/orkansama/BetterVSCHarpoon/commit/ed10bcafe33e0c477edfde38492e963955ebd85f))
+
 ## [1.1.1](https://github.com/orkansama/BetterVSCHarpoon/compare/v1.1.0...v1.1.1) (2026-08-26)
 
 ### refactor
