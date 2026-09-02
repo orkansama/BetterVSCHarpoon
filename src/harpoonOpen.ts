@@ -4,7 +4,7 @@ export function openHarpoonFileCommand(harpoonListPath: string): vscode.Disposab
     let openHarpoonFileCommand = vscode.commands.registerCommand('bettervscharpoon.open_harpoon_list', async () => {
         try {
             const harpoonFile = await vscode.workspace.openTextDocument(harpoonListPath);
-            vscode.window.showTextDocument(harpoonFile, vscode.ViewColumn.One, false);
+            vscode.window.showTextDocument(harpoonFile, vscode.ViewColumn.Active, false);
             return openHarpoonFileCommand;
         }
         catch {

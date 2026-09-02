@@ -36,5 +36,5 @@ function jump(documentToShow: vscode.TextDocument) {
 		return;
 	}
 
-	vscode.window.showTextDocument(documentToShow, vscode.ViewColumn.One, false);
+	vscode.window.showTextDocument(documentToShow, vscode.ViewColumn.Active, false);
 }

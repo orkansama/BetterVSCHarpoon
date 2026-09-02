@@ -2,7 +2,7 @@
   "name": "bettervscharpoon",
   "displayName": "BetterVSCHarpoon",
   "description": "Harpoon for VSC, made txt simple!",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "icon": "assets/BetterVSCHarpoon_Icon.png",
   "engines": {
     "vscode": "^1.125.0"
