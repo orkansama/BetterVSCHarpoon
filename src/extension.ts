@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const newProject: project = {
 			globalDirectoryHash: String(crypto.createHash('sha256')),
 			projectPath: workspaceRoot,
-			lastOpenedDate: new Date().toLocaleDateString()
+			lastOpenedDate: new Date()
 		}
 
 		multiProjectService.addObjectToMultiProjectDb(multiProjectDbPath, newProject);
@@ -47,6 +47,8 @@ export function activate(context: vscode.ExtensionContext) {
 		fs.mkdirSync(`${newHarpoonList}`, { recursive: true })
 		HARPOON_LIST_PATH = `${newHarpoonList}`
 	}
+
+	multiProjectService.garbageCollect(GLOBAL_STORAGE_PATH, multiProjectDbPath)
 
 	for (let i = 0; i < 9; i++) {
 		const jumpCommand = vscode.commands.registerCommand(

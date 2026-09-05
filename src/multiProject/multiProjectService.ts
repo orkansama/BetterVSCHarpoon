@@ -14,10 +14,23 @@ export function createAndFillJsonDb(multiProjectDbPath: string) {
     }
 }
 
-// GarbageCollection
-// export function checkForExpiredProjects(multiProjectDbPath: string): project | undefined {
+// remove all entrys that are older than 60 days
+export function garbageCollect(globalStoragePath: string, multiProjectDbPath: string) {
+    let jsonData: project[] = getMultiProjectDbAsArray(multiProjectDbPath);
 
-// }
+    // All datasets that are NOT expired
+    let arrayWithoutExpiredProjects: project[] = jsonData.filter(x => !x.lastOpenedDate.setDate(x.lastOpenedDate.getDate() + 60))
+
+    // all hashes that are not longer available in arrayWithoutExpiredProjects, can be removed 
+    let removedProjects = jsonData.filter(x => !arrayWithoutExpiredProjects.includes(x))
+    // TODO: can this be done more efficient?
+    removedProjects.forEach(project => {
+        let pathToRemove: string = `${globalStoragePath}${path.sep}${project.globalDirectoryHash}`
+
+        removeProjectFromMultiProjectDb(multiProjectDbPath, project.projectPath)
+        fs.rmSync(pathToRemove, { recursive: true })
+    });
+}
 
 export function addObjectToMultiProjectDb(multiProjectDbPath: string, projectToAdd: project) {
     let jsonData: project[] = getMultiProjectDbAsArray(multiProjectDbPath)
@@ -71,6 +84,6 @@ export function updateDbProjectDate(multiProjectDbPath: string, path: string) {
         return;
     }
 
-    search.lastOpenedDate = new Date().toLocaleDateString()
+    search.lastOpenedDate = new Date()
     jsonFileLibary.writeFileSync(multiProjectDbPath, jsonData, { spaces: 2 })
 }
