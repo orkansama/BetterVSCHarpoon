@@ -91,6 +91,7 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.9",
     "@semantic-release/release-notes-generator": "^14.1.1",
+    "@types/jsonfile": "^6.1.4",
     "@types/mocha": "^10.0.10",
     "@types/node": "24.x",
     "@types/vscode": "^1.125.0",
@@ -114,6 +115,7 @@
   },
   "publisher": "OrkanGoekcen",
   "dependencies": {
-    "conventional-changelog-conventionalcommits": "^9.3.1"
+    "conventional-changelog-conventionalcommits": "^9.3.1",
+    "jsonfile": "^6.2.1"
   }
 }
