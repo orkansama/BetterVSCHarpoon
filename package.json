@@ -116,6 +116,7 @@
   "publisher": "OrkanGoekcen",
   "dependencies": {
     "conventional-changelog-conventionalcommits": "^9.3.1",
+    "dayjs": "^1.11.23",
     "jsonfile": "^6.2.1"
   }
 }

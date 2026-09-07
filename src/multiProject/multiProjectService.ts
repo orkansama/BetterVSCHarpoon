@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as jsonFileLibary from "jsonfile"
 import path from 'path';
 import { project } from "./interfaces/project";
+import dayjs from "dayjs";
 
 export function getJsonDbPath(context: vscode.ExtensionContext): string | undefined {
     try {
@@ -34,11 +35,16 @@ export function garbageCollectJsonDb(globalStoragePath: string, jsonDbPath: stri
             return undefined
         }
 
-        let arrayWithoutExpiredProjects: project[] = jsonData.filter(x => !x.lastOpenedDate.setDate(x.lastOpenedDate.getDate() + 60))
-        // all hashes that are not longer available in arrayWithoutExpiredProjects, can be removed 
-        let removedProjects = jsonData.filter(x => !arrayWithoutExpiredProjects.includes(x))
+        // All Projects that are older than 60 days
+        let expiredProjects: project[] = jsonData.filter(x => {
+            let expiredAt = dayjs(x.lastOpenedDate).add(60, "days");
+            let now = dayjs(new Date())
+
+           return expiredAt < now
+        })
+
         // TODO: can this be done more efficient?
-        removedProjects.forEach(project => {
+        expiredProjects.forEach(project => {
             let pathToRemove: string = `${globalStoragePath}${path.sep}${project.globalDirectoryHash}`
 
             removeProjectFromJsonDb(jsonDbPath, project.projectPath)
@@ -98,7 +104,7 @@ export function removeProjectFromJsonDb(jsonDbPath: string, projectPath: string)
             return undefined
         }
 
-        jsonData = jsonData.filter(item => item.projectPath == projectPath)
+        jsonData = jsonData.filter(item => item.projectPath != projectPath)
 
         jsonFileLibary.writeFileSync(jsonDbPath, jsonData, { spaces: 2 })
     }
