@@ -26,6 +26,8 @@ export function createAndFillJsonDb(multiProjectDbPath: string): void | undefine
 
 // remove all entrys that are older than 60 days
 export function garbageCollect(globalStoragePath: string, multiProjectDbPath: string): void | undefined {
+    createAndFillJsonDb(multiProjectDbPath)
+
     try {
         let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath);
         if (jsonData == undefined) {
@@ -49,6 +51,8 @@ export function garbageCollect(globalStoragePath: string, multiProjectDbPath: st
 }
 
 export function addObjectToMultiProjectDb(multiProjectDbPath: string, projectToAdd: project): void | undefined {
+    createAndFillJsonDb(multiProjectDbPath)
+
     try {
         let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
         if (jsonData == undefined) {
@@ -65,6 +69,8 @@ export function addObjectToMultiProjectDb(multiProjectDbPath: string, projectToA
 }
 
 export function getProjectByPath(multiProjectDbPath: string, path: string): project | undefined {
+    createAndFillJsonDb(multiProjectDbPath)
+
     try {
         let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
         if (jsonData == undefined) {
@@ -85,6 +91,8 @@ export function getProjectByPath(multiProjectDbPath: string, path: string): proj
 }
 
 export function removeProjectFromMultiProjectDb(multiProjectDbPath: string, projectPath: string): void | undefined {
+    createAndFillJsonDb(multiProjectDbPath)
+
     try {
         let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
         if (jsonData == undefined) {
@@ -101,6 +109,8 @@ export function removeProjectFromMultiProjectDb(multiProjectDbPath: string, proj
 }
 
 export function getMultiProjectDbAsArray(multiProjectDbPath: string): project[] | undefined {
+    createAndFillJsonDb(multiProjectDbPath)
+
     try {
         let jsonDataArray: project[] | undefined = jsonFileLibary.readFileSync(multiProjectDbPath)
         if (jsonDataArray == undefined) {
@@ -115,6 +125,8 @@ export function getMultiProjectDbAsArray(multiProjectDbPath: string): project[] 
 }
 
 export function multiProjectDbIncludesPath(multiProjectDbPath: string, path: string): boolean | undefined {
+    createAndFillJsonDb(multiProjectDbPath)
+
     try {
         let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
         if (jsonData == undefined) {
@@ -133,6 +145,8 @@ export function multiProjectDbIncludesPath(multiProjectDbPath: string, path: str
 }
 
 export function updateDbProjectDate(multiProjectDbPath: string, path: string): void | undefined {
+    createAndFillJsonDb(multiProjectDbPath)
+
     try {
         let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
         if (jsonData == undefined) {
