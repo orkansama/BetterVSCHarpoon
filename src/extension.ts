@@ -1,4 +1,4 @@
-import { mkdirSync } from 'fs';
+import * as fs from 'fs';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as harpoonAdd from "./harpoonAdd"
@@ -50,9 +50,18 @@ export function activate(context: vscode.ExtensionContext) {
 
 		multiProjectService.addProjectToJsonDb(jsonDbPath, newProject);
 
-		const newHarpoonList = `${GLOBAL_STORAGE_PATH}${path.sep}${newProject.globalDirectoryHash}${path.sep}better_harpoon_list.txt`;
-		mkdirSync(`${newHarpoonList}`, { recursive: true })
-		harpoonListPath = `${newHarpoonList}`
+		const harpoonListHashDirectory = `${GLOBAL_STORAGE_PATH}${path.sep}${newProject.globalDirectoryHash}`;
+		const fullHarpoonListPath = `${harpoonListHashDirectory}${path.sep}better_harpoon_list.txt`;
+		try {
+			fs.mkdirSync(`${harpoonListHashDirectory}`, { recursive: true })
+			let file = fs.openSync(fullHarpoonListPath, 'a')
+			fs.closeSync(file)
+		}
+		catch {
+			return vscode.window.showErrorMessage(internalErrorMessage)
+		}
+
+		harpoonListPath = `${fullHarpoonListPath}`
 	}
 
 	multiProjectService.garbageCollectJsonDb(GLOBAL_STORAGE_PATH, jsonDbPath)
