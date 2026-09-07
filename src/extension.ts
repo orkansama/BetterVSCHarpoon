@@ -39,7 +39,11 @@ export function activate(context: vscode.ExtensionContext) {
 	}
 	else {
 		const newProject: project = {
-			globalDirectoryHash: String(crypto.createHash('sha256')),
+			globalDirectoryHash: crypto
+				.createHash('sha256')
+				.update(workspaceRoot)
+				.digest('hex')
+				.toString(),
 			projectPath: workspaceRoot,
 			lastOpenedDate: new Date()
 		}
