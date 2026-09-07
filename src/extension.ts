@@ -17,15 +17,15 @@ export function activate(context: vscode.ExtensionContext) {
 		return;
 	}
 
-	const multiProjectDbPath: string = multiProjectService.getMultiProjectDbPath(context);
+	const multiProjectDbPath: string = multiProjectService.getJsonDbPath(context);
 	multiProjectService.createAndFillJsonDb(multiProjectDbPath);
 
-	var dbContainsPath: boolean = multiProjectService.multiProjectDbIncludesPath(multiProjectDbPath, workspaceRoot);
+	var dbContainsPath: boolean = multiProjectService.jsonDbIncludesPath(multiProjectDbPath, workspaceRoot);
 	if (dbContainsPath) {
-		multiProjectService.updateDbProjectDate(multiProjectDbPath, workspaceRoot);
+		multiProjectService.updateJsonDbProjectDate(multiProjectDbPath, workspaceRoot);
 
 		let projectWithCurrentPath: project | undefined =
-			multiProjectService.getProjectByPath(multiProjectDbPath, workspaceRoot)
+			multiProjectService.getProjectFromJsonDbByPath(multiProjectDbPath, workspaceRoot)
 
 		if (projectWithCurrentPath == undefined) {
 			// projectWithCurrentPath needs rework
@@ -41,14 +41,14 @@ export function activate(context: vscode.ExtensionContext) {
 			lastOpenedDate: new Date()
 		}
 
-		multiProjectService.addObjectToMultiProjectDb(multiProjectDbPath, newProject);
+		multiProjectService.addProjectToJsonDb(multiProjectDbPath, newProject);
 
 		const newHarpoonList = `${GLOBAL_STORAGE_PATH}${path.sep}${newProject.globalDirectoryHash}${path.sep}better_harpoon_list.txt`;
 		fs.mkdirSync(`${newHarpoonList}`, { recursive: true })
 		HARPOON_LIST_PATH = `${newHarpoonList}`
 	}
 
-	multiProjectService.garbageCollect(GLOBAL_STORAGE_PATH, multiProjectDbPath)
+	multiProjectService.garbageCollectJsonDb(GLOBAL_STORAGE_PATH, multiProjectDbPath)
 
 	for (let i = 0; i < 9; i++) {
 		const jumpCommand = vscode.commands.registerCommand(

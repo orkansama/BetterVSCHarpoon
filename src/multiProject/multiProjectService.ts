@@ -4,19 +4,19 @@ import * as jsonFileLibary from "jsonfile"
 import path from 'path';
 import { project } from "./interfaces/project";
 
-export function getMultiProjectDbPath(context: vscode.ExtensionContext): string | undefined {
+export function getJsonDbPath(context: vscode.ExtensionContext): string | undefined {
     try {
-        return `${context.globalStorageUri.fsPath}${path.sep}multiProjectDb.json`;
+        return `${context.globalStorageUri.fsPath}${path.sep}JsonDb.json`;
     }
     catch {
         return undefined;
     }
 }
 
-export function createAndFillJsonDb(multiProjectDbPath: string): void | undefined {
+export function createAndFillJsonDb(jsonDbPath: string): void | undefined {
     try {
-        if (!fs.existsSync(multiProjectDbPath)) {
-            fs.writeFileSync(multiProjectDbPath, '[]');
+        if (!fs.existsSync(jsonDbPath)) {
+            fs.writeFileSync(jsonDbPath, '[]');
         }
     }
     catch {
@@ -25,11 +25,11 @@ export function createAndFillJsonDb(multiProjectDbPath: string): void | undefine
 }
 
 // remove all entrys that are older than 60 days
-export function garbageCollect(globalStoragePath: string, multiProjectDbPath: string): void | undefined {
-    createAndFillJsonDb(multiProjectDbPath)
+export function garbageCollectJsonDb(globalStoragePath: string, jsonDbPath: string): void | undefined {
+    createAndFillJsonDb(jsonDbPath)
 
     try {
-        let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath);
+        let jsonData: project[] | undefined = getJsonDbAsArray(jsonDbPath);
         if (jsonData == undefined) {
             return undefined
         }
@@ -41,7 +41,7 @@ export function garbageCollect(globalStoragePath: string, multiProjectDbPath: st
         removedProjects.forEach(project => {
             let pathToRemove: string = `${globalStoragePath}${path.sep}${project.globalDirectoryHash}`
 
-            removeProjectFromMultiProjectDb(multiProjectDbPath, project.projectPath)
+            removeProjectFromJsonDb(jsonDbPath, project.projectPath)
             fs.rmSync(pathToRemove, { recursive: true })
         });
     }
@@ -50,37 +50,36 @@ export function garbageCollect(globalStoragePath: string, multiProjectDbPath: st
     }
 }
 
-export function addObjectToMultiProjectDb(multiProjectDbPath: string, projectToAdd: project): void | undefined {
-    createAndFillJsonDb(multiProjectDbPath)
+export function addProjectToJsonDb(jsonDbPath: string, projectToAdd: project): void | undefined {
+    createAndFillJsonDb(jsonDbPath)
 
     try {
-        let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
+        let jsonData: project[] | undefined = getJsonDbAsArray(jsonDbPath)
         if (jsonData == undefined) {
             return undefined
         }
 
         jsonData.push(projectToAdd)
 
-        jsonFileLibary.writeFileSync(multiProjectDbPath, jsonData, { spaces: 2 })
+        jsonFileLibary.writeFileSync(jsonDbPath, jsonData, { spaces: 2 })
     }
     catch {
         return undefined;
     }
 }
 
-export function getProjectByPath(multiProjectDbPath: string, path: string): project | undefined {
-    createAndFillJsonDb(multiProjectDbPath)
+export function getProjectFromJsonDbByPath(jsonDbPath: string, path: string): project | undefined {
+    createAndFillJsonDb(jsonDbPath)
 
     try {
-        let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
+        let jsonData: project[] | undefined = getJsonDbAsArray(jsonDbPath)
         if (jsonData == undefined) {
             return undefined
         }
 
         const searchResult: project | undefined = jsonData.find(x => x.projectPath == path);
         if (searchResult == undefined) {
-            vscode.window.showErrorMessage("BetterVSCHarpoon internal error");
-            return;
+            return undefined;
         }
 
         return searchResult;
@@ -90,29 +89,29 @@ export function getProjectByPath(multiProjectDbPath: string, path: string): proj
     }
 }
 
-export function removeProjectFromMultiProjectDb(multiProjectDbPath: string, projectPath: string): void | undefined {
-    createAndFillJsonDb(multiProjectDbPath)
+export function removeProjectFromJsonDb(jsonDbPath: string, projectPath: string): void | undefined {
+    createAndFillJsonDb(jsonDbPath)
 
     try {
-        let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
+        let jsonData: project[] | undefined = getJsonDbAsArray(jsonDbPath)
         if (jsonData == undefined) {
             return undefined
         }
 
         jsonData = jsonData.filter(item => item.projectPath == projectPath)
 
-        jsonFileLibary.writeFileSync(multiProjectDbPath, jsonData, { spaces: 2 })
+        jsonFileLibary.writeFileSync(jsonDbPath, jsonData, { spaces: 2 })
     }
     catch {
         return undefined;
     }
 }
 
-export function getMultiProjectDbAsArray(multiProjectDbPath: string): project[] | undefined {
-    createAndFillJsonDb(multiProjectDbPath)
+export function getJsonDbAsArray(jsonDbPath: string): project[] | undefined {
+    createAndFillJsonDb(jsonDbPath)
 
     try {
-        let jsonDataArray: project[] | undefined = jsonFileLibary.readFileSync(multiProjectDbPath)
+        let jsonDataArray: project[] | undefined = jsonFileLibary.readFileSync(jsonDbPath)
         if (jsonDataArray == undefined) {
             return undefined
         }
@@ -124,11 +123,11 @@ export function getMultiProjectDbAsArray(multiProjectDbPath: string): project[] 
     }
 }
 
-export function multiProjectDbIncludesPath(multiProjectDbPath: string, path: string): boolean | undefined {
-    createAndFillJsonDb(multiProjectDbPath)
+export function jsonDbIncludesPath(jsonDbPath: string, path: string): boolean | undefined {
+    createAndFillJsonDb(jsonDbPath)
 
     try {
-        let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
+        let jsonData: project[] | undefined = getJsonDbAsArray(jsonDbPath)
         if (jsonData == undefined) {
             return undefined
         }
@@ -144,23 +143,22 @@ export function multiProjectDbIncludesPath(multiProjectDbPath: string, path: str
     }
 }
 
-export function updateDbProjectDate(multiProjectDbPath: string, path: string): void | undefined {
-    createAndFillJsonDb(multiProjectDbPath)
+export function updateJsonDbProjectDate(jsonDbPath: string, path: string): void | undefined {
+    createAndFillJsonDb(jsonDbPath)
 
     try {
-        let jsonData: project[] | undefined = getMultiProjectDbAsArray(multiProjectDbPath)
+        let jsonData: project[] | undefined = getJsonDbAsArray(jsonDbPath)
         if (jsonData == undefined) {
             return undefined
         }
 
         const search = jsonData.find(x => x.projectPath == path);
         if (search == undefined) {
-            vscode.window.showErrorMessage("BetterVSCHarpoon internal error");
-            return;
+            return undefined;
         }
 
         search.lastOpenedDate = new Date()
-        jsonFileLibary.writeFileSync(multiProjectDbPath, jsonData, { spaces: 2 })
+        jsonFileLibary.writeFileSync(jsonDbPath, jsonData, { spaces: 2 })
     }
     catch {
         return undefined;
