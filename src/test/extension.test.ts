@@ -2,9 +2,11 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as _sut from '../multiProject/multiProjectService'
 import * as fs from "fs";
+import * as sinon from "sinon";
 
 suite('multiProjectService tests', () => {
 	const TEST_DB_PATH: string = "./testDb.json";
+	const GLOBAL_STORARGE_PATh: string = "./globalStorage/harpoon_list_test.txt";
 
 	beforeEach(() => {
 		fs.writeFileSync(TEST_DB_PATH, '[]');
@@ -17,7 +19,11 @@ suite('multiProjectService tests', () => {
 	});
 
 	test('garbageCollectJsonDb: finds expired projects', () => {
-		const result = _sut.garbageCollectJsonDb("sfdaf", "fasdfa")
+		let mock = sinon.fake().alwaysCalledOn()
+		_sut.getJsonDbAsArray()
+
+		_sut.addProjectToJsonDb()
+		const result = _sut.garbageCollectJsonDb(GLOBAL_STORARGE_PATh, TEST_DB_PATH)
 
 		assert.equal(result, "")
 	});
