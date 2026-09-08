@@ -4,3 +4,4 @@ node_modules
 .vscode-test/vscode-win32-x64-archive-1.132.0
 dist
 out
+/.vscode-test/vscode-win32-x64-archive-1.136.1

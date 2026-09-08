@@ -23,6 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 		return vscode.window.showErrorMessage(internalErrorMessage)
 	}
 
+	// save
 	var jsonDbContainsPath = multiProjectService.jsonDbIncludesPath(jsonDbPath, workspaceRoot);
 	if (jsonDbContainsPath == undefined) {
 		return vscode.window.showErrorMessage(internalErrorMessage)
@@ -64,7 +65,12 @@ export function activate(context: vscode.ExtensionContext) {
 		harpoonListPath = `${fullHarpoonListPath}`
 	}
 
-	multiProjectService.garbageCollectJsonDb(GLOBAL_STORAGE_PATH, jsonDbPath)
+	// remove
+	try {
+		multiProjectService.garbageCollectJsonDb(GLOBAL_STORAGE_PATH, jsonDbPath)
+	} catch {
+		return vscode.window.showErrorMessage(internalErrorMessage)
+	}
 
 	for (let i = 0; i < 9; i++) {
 		const jumpCommand = vscode.commands.registerCommand(
