@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
-import * as _sut from '../multiProject/multiProjectService'
-import { project } from '../multiProject/interfaces/project';
+import * as _sut from '../../multiProject/multiProjectService'
+import { project } from '../../multiProject/interfaces/project';
 import dayjs from 'dayjs';
 import * as assert from 'assert';
 
-suite('multiProjectService tests', () => {
-	test('findExpiredProjects: only finds expired projects', () => {
+suite('findExpiredProjects', () => {
+	test('only finds expired projects', () => {
 		let expiredProject: project = {
 			globalDirectoryHash: "",
 			projectPath: "",
@@ -29,7 +29,7 @@ suite('multiProjectService tests', () => {
 		assert.equal(result[0], expiredProject)
 	});
 
-	test('findExpiredProjects: returns empty array, if no invalid projects found', () => {
+	test('returns empty array, if no invalid projects found', () => {
 		let validProject: project = {
 			globalDirectoryHash: "",
 			projectPath: "",
