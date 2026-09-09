@@ -4,7 +4,7 @@ import * as jsonFileLibary from "jsonfile"
 import path from 'path';
 import { project } from "./interfaces/project";
 import dayjs from "dayjs";
-import { error, isError } from "./error/error";
+import { error } from "./error/error";
 
 export class multiProjectService {
     private readonly _context: vscode.ExtensionContext;

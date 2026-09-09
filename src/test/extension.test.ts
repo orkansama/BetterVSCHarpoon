@@ -1,24 +1,48 @@
-import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as _sut from '../multiProject/multiProjectService'
-import * as fs from "fs";
-import * as sinon from "sinon";
+import { project } from '../multiProject/interfaces/project';
+import dayjs from 'dayjs';
+import * as assert from 'assert';
 
 suite('multiProjectService tests', () => {
-	const TEST_DB_PATH: string = "./testDb.json";
-	const GLOBAL_STORARGE_PATh: string = "./globalStorage/harpoon_list_test.txt";
-
-	beforeEach(() => {
-		fs.writeFileSync(TEST_DB_PATH, '[]');
-
-	});
-
-	afterEach(() => {
-		if (fs.existsSync(TEST_DB_PATH)) {
-			fs.rmSync(TEST_DB_PATH);
+	test('findExpiredProjects: only finds expired projects', () => {
+		let expiredProject: project = {
+			globalDirectoryHash: "",
+			projectPath: "",
+			lastOpenedDate: dayjs().subtract(80, "days").toDate(),
 		}
+
+		let validProject: project = {
+			globalDirectoryHash: "",
+			projectPath: "",
+			lastOpenedDate: dayjs().toDate()
+		}
+
+		let multiProjectService = new _sut.multiProjectService(
+			{} as vscode.ExtensionContext,
+			{} as string,
+			[expiredProject, validProject])
+
+		var result = multiProjectService.findExpiredProjects()
+
+		assert.equal(result.length, 1)
+		assert.equal(result[0], expiredProject)
 	});
 
-	test('getJsonDbPath: returns JsonDbPath', () => {
+	test('findExpiredProjects: returns empty array, if no invalid projects found', () => {
+		let validProject: project = {
+			globalDirectoryHash: "",
+			projectPath: "",
+			lastOpenedDate: dayjs().toDate()
+		}
+
+		let multiProjectService = new _sut.multiProjectService(
+			{} as vscode.ExtensionContext,
+			{} as string,
+			[validProject])
+
+		var result = multiProjectService.findExpiredProjects()
+
+		assert.equal(result.length, 0)
 	});
 });
