@@ -20,7 +20,7 @@ suite('addProjectToJsonDb', () => {
             TEST_JSON_DB_PATH,
             [validProject])
 
-        var result = multiProjectService.addProjectToJsonDb(validProject)
+        const result = multiProjectService.addProjectToJsonDb(validProject)
         assert.equal(false, error.isError(result))
     });
 
@@ -36,7 +36,7 @@ suite('addProjectToJsonDb', () => {
             {} as string,
             [validProject])
 
-        var result = multiProjectService.addProjectToJsonDb(validProject)
+        const result = multiProjectService.addProjectToJsonDb(validProject)
         assert.equal(true, error.isError(result))
     });
 });

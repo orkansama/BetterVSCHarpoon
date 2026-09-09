@@ -23,7 +23,7 @@ suite('findExpiredProjects', () => {
 			{} as string,
 			[expiredProject, validProject])
 
-		var result = multiProjectService.findExpiredProjects()
+		const result = multiProjectService.findExpiredProjects()
 
 		assert.equal(result.length, 1)
 		assert.equal(result[0], expiredProject)
@@ -41,7 +41,7 @@ suite('findExpiredProjects', () => {
 			{} as string,
 			[validProject])
 
-		var result = multiProjectService.findExpiredProjects()
+		const result = multiProjectService.findExpiredProjects()
 
 		assert.equal(result.length, 0)
 	});

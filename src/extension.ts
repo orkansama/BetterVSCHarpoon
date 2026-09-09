@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		}
 
-		var jsonDbContainsPath = dbService.jsonDbIncludesPath(workspaceRoot!);
+		const jsonDbContainsPath = dbService.jsonDbIncludesPath(workspaceRoot!);
 		if (isError(jsonDbContainsPath)) {
 			vscode.window.showErrorMessage(`${jsonDbContainsPath.code} ${jsonDbContainsPath.message}`);
 			return;
