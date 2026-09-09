@@ -1,8 +1,8 @@
-import * as vscode from 'vscode';
-import * as _sut from '../../multiProject/multiProjectService'
-import { project } from '../../multiProject/interfaces/project';
 import dayjs from 'dayjs';
-import * as assert from 'assert';
+import * as _sut from '../../multiProject/multiProjectService'
+import { ExtensionContext } from 'vscode';
+import { project } from '../../multiProject/interfaces/project';
+import { equal } from 'assert';
 
 suite('findExpiredProjects', () => {
 	test('only finds expired projects', () => {
@@ -19,14 +19,14 @@ suite('findExpiredProjects', () => {
 		}
 
 		let multiProjectService = new _sut.multiProjectService(
-			{} as vscode.ExtensionContext,
+			{} as ExtensionContext,
 			{} as string,
 			[expiredProject, validProject])
 
 		const result = multiProjectService.findExpiredProjects()
 
-		assert.equal(result.length, 1)
-		assert.equal(result[0], expiredProject)
+		equal(result.length, 1)
+		equal(result[0], expiredProject)
 	});
 
 	test('returns empty array, if no invalid projects found', () => {
@@ -37,12 +37,12 @@ suite('findExpiredProjects', () => {
 		}
 
 		let multiProjectService = new _sut.multiProjectService(
-			{} as vscode.ExtensionContext,
+			{} as ExtensionContext,
 			{} as string,
 			[validProject])
 
 		const result = multiProjectService.findExpiredProjects()
 
-		assert.equal(result.length, 0)
+		equal(result.length, 0)
 	});
 });

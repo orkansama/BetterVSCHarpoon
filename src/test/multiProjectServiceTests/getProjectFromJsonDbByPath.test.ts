@@ -1,9 +1,9 @@
-import * as vscode from 'vscode';
-import * as _sut from '../../multiProject/multiProjectService'
-import { project } from '../../multiProject/interfaces/project';
 import dayjs from 'dayjs';
-import * as assert from 'assert';
-import * as error from '../../multiProject/error/error';
+import * as _sut from '../../multiProject/multiProjectService'
+import { ExtensionContext } from 'vscode';
+import { project } from '../../multiProject/interfaces/project';
+import { equal } from 'assert';
+import { isError } from '../../multiProject/error/error';
 
 suite('getProjectFromJsonDbByPath', () => {
 
@@ -15,14 +15,14 @@ suite('getProjectFromJsonDbByPath', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [validProject])
 
         const searchedPath = "hello/world"
         const result = multiProjectService.getProjectFromJsonDbByPath(searchedPath)
-        assert.equal(validProject, result)
-        assert.equal(false, error.isError(result))
+        equal(validProject, result)
+        equal(false, isError(result))
     });
 
     test('gets project by path and ignores other values', () => {
@@ -43,35 +43,35 @@ suite('getProjectFromJsonDbByPath', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [projectOne, projectTwo, projectThree])
 
         const searchedPath = "hello/world"
         const result = multiProjectService.getProjectFromJsonDbByPath(searchedPath)
-        assert.equal(projectTwo, result)
-        assert.equal(false, error.isError(result))
+        equal(projectTwo, result)
+        equal(false, isError(result))
     });
 
     test('returns error on empty path', () => {
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [])
 
         const searchedPath = "hello/world"
         const result = multiProjectService.getProjectFromJsonDbByPath(searchedPath)
-        assert.equal(true, error.isError(result))
+        equal(true, isError(result))
     });
 
     test('catches and returns error on failure', () => {
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [] as project[])
 
         const searchedPath = "hello/world";
         const result = multiProjectService.getProjectFromJsonDbByPath(searchedPath);
-        assert.equal(true, error.isError(result))
+        equal(true, isError(result))
     });
 });

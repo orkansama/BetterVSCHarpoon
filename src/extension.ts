@@ -1,12 +1,12 @@
 import * as fs from 'fs';
 import * as vscode from 'vscode';
-import * as path from 'path';
-import * as harpoonAdd from "./harpoonAdd"
-import * as harpoonJump from "./harpoonJump"
-import * as harpoonOpen from "./harpoonOpen"
+import { sep } from 'path';
+import { addPathToHarpoonList } from "./harpoonAdd"
+import { registerJumpCommand } from "./harpoonJump"
+import { openHarpoonFileCommand } from "./harpoonOpen"
+import { createHash } from 'crypto';
 import { project } from './multiProject/interfaces/project';
 import { multiProjectServiceFactory } from './multiProject/multiProjectServiceFactory';
-import * as crypto from 'crypto';
 import { isError } from "./multiProject/error/error";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -49,13 +49,12 @@ export function activate(context: vscode.ExtensionContext) {
 				return;
 			}
 			else {
-				harpoonListPath = `${GLOBAL_STORAGE_PATH}${path.sep}${projectWithCurrentPath.globalDirectoryHash}${path.sep}better_harpoon_list.txt`
+				harpoonListPath = `${GLOBAL_STORAGE_PATH}${sep}${projectWithCurrentPath.globalDirectoryHash}${sep}better_harpoon_list.txt`
 			}
 		}
 		else {
 			const newProject: project = {
-				globalDirectoryHash: crypto
-					.createHash('sha256')
+				globalDirectoryHash: createHash('sha256')
 					.update(workspaceRoot!)
 					.digest('hex')
 					.toString(),
@@ -69,8 +68,8 @@ export function activate(context: vscode.ExtensionContext) {
 				return;
 			}
 
-			const harpoonListHashDirectory = `${GLOBAL_STORAGE_PATH}${path.sep}${newProject.globalDirectoryHash}`;
-			const fullHarpoonListPath = `${harpoonListHashDirectory}${path.sep}better_harpoon_list.txt`;
+			const harpoonListHashDirectory = `${GLOBAL_STORAGE_PATH}${sep}${newProject.globalDirectoryHash}`;
+			const fullHarpoonListPath = `${harpoonListHashDirectory}${sep}better_harpoon_list.txt`;
 			try {
 				fs.mkdirSync(`${harpoonListHashDirectory}`, { recursive: true })
 				let file = fs.openSync(fullHarpoonListPath, 'a')
@@ -99,7 +98,7 @@ export function activate(context: vscode.ExtensionContext) {
 		for (let i = 0; i < 9; i++) {
 			const jumpCommand = vscode.commands.registerCommand(
 				`bettervscharpoon.navigate_${i + 1}`, () =>
-				harpoonJump.registerJumpCommand(i, harpoonListPath));
+				registerJumpCommand(i, harpoonListPath));
 
 			context.subscriptions.push(
 				jumpCommand
@@ -107,8 +106,8 @@ export function activate(context: vscode.ExtensionContext) {
 		};
 
 		context.subscriptions.push(
-			harpoonAdd.addPathToHarpoonList(harpoonListPath),
-			harpoonOpen.openHarpoonFileCommand(harpoonListPath),
+			addPathToHarpoonList(harpoonListPath),
+			openHarpoonFileCommand(harpoonListPath),
 		);
 	}
 }

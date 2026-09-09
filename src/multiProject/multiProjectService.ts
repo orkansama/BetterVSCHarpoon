@@ -1,17 +1,17 @@
-import * as vscode from 'vscode';
-import * as fs from "fs";
-import * as jsonFileLibary from "jsonfile"
-import path from 'path';
-import { project } from "./interfaces/project";
 import dayjs from "dayjs";
+import { sep } from 'path';
+import { ExtensionContext } from 'vscode';
+import { rmSync } from "fs";
+import { writeFileSync } from "jsonfile"
+import { project } from "./interfaces/project";
 import { error } from "./error/error";
 
 export class multiProjectService {
-    private readonly _context: vscode.ExtensionContext;
+    private readonly _context: ExtensionContext;
     private readonly _jsonDbPath: string;
     private _jsonProjectDataArray: project[];
 
-    public constructor(context: vscode.ExtensionContext, jsonDbPath: string, jsonProjectDataArray: project[]) {
+    public constructor(context: ExtensionContext, jsonDbPath: string, jsonProjectDataArray: project[]) {
         this._context = context
         this._jsonDbPath = jsonDbPath
         this._jsonProjectDataArray = jsonProjectDataArray
@@ -24,9 +24,9 @@ export class multiProjectService {
 
             // TODO: can this be done more efficient?
             expiredProjects.forEach(project => {
-                let pathToRemove: string = `${this._context.globalStorageUri.fsPath}${path.sep}${project.globalDirectoryHash}`
+                let pathToRemove: string = `${this._context.globalStorageUri.fsPath}${sep}${project.globalDirectoryHash}`
                 this.removeProjectFromJsonDb(project.projectPath)
-                fs.rmSync(pathToRemove, { recursive: true })
+                rmSync(pathToRemove, { recursive: true })
             });
         }
         catch {
@@ -53,7 +53,7 @@ export class multiProjectService {
     public addProjectToJsonDb(projectToAdd: project): void | error {
         try {
             this._jsonProjectDataArray.push(projectToAdd)
-            jsonFileLibary.writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
+            writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
         }
         catch {
             let error: error = {
@@ -92,7 +92,7 @@ export class multiProjectService {
     public removeProjectFromJsonDb(projectPath: string): void | error {
         try {
             this._jsonProjectDataArray = this._jsonProjectDataArray.filter(item => item.projectPath != projectPath)
-            jsonFileLibary.writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
+            writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
         }
         catch {
             let error: error = {
@@ -136,7 +136,7 @@ export class multiProjectService {
             }
 
             search.lastOpenedDate = new Date()
-            jsonFileLibary.writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
+            writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
         }
         catch {
             let error: error = {

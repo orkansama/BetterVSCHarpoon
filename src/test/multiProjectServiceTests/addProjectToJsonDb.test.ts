@@ -1,9 +1,9 @@
-import * as vscode from 'vscode';
-import * as _sut from '../../multiProject/multiProjectService'
-import { project } from '../../multiProject/interfaces/project';
 import dayjs from 'dayjs';
-import * as assert from 'assert';
-import * as error from '../../multiProject/error/error';
+import * as _sut from '../../multiProject/multiProjectService'
+import { ExtensionContext } from 'vscode';
+import { project } from '../../multiProject/interfaces/project';
+import { equal } from 'assert';
+import { isError } from '../../multiProject/error/error';
 
 suite('addProjectToJsonDb', () => {
     const TEST_JSON_DB_PATH = "./testJsonDb.json"
@@ -16,12 +16,12 @@ suite('addProjectToJsonDb', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             TEST_JSON_DB_PATH,
             [validProject])
 
         const result = multiProjectService.addProjectToJsonDb(validProject)
-        assert.equal(false, error.isError(result))
+        equal(false, isError(result))
     });
 
     test('catches and returns error on failure', () => {
@@ -32,11 +32,11 @@ suite('addProjectToJsonDb', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [validProject])
 
         const result = multiProjectService.addProjectToJsonDb(validProject)
-        assert.equal(true, error.isError(result))
+        equal(true, isError(result))
     });
 });

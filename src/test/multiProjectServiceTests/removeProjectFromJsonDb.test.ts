@@ -1,9 +1,9 @@
-import * as vscode from 'vscode';
-import * as _sut from '../../multiProject/multiProjectService'
-import { project } from '../../multiProject/interfaces/project';
 import dayjs from 'dayjs';
-import * as assert from 'assert';
-import * as error from '../../multiProject/error/error';
+import * as _sut from '../../multiProject/multiProjectService'
+import { ExtensionContext } from 'vscode';
+import { project } from '../../multiProject/interfaces/project';
+import { equal } from 'assert';
+import { isError } from '../../multiProject/error/error';
 
 suite('removeProjectFromJsonDb', () => {
     const TEST_JSON_DB_PATH = "./testJsonDb.json"
@@ -16,13 +16,13 @@ suite('removeProjectFromJsonDb', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             TEST_JSON_DB_PATH,
             [projectToRemove])
 
         const result = multiProjectService.removeProjectFromJsonDb(projectToRemove.projectPath)
-        assert.equal(false, error.isError(result))
-        assert.equal(false, multiProjectService.jsonDbIncludesPath(projectToRemove.projectPath))
+        equal(false, isError(result))
+        equal(false, multiProjectService.jsonDbIncludesPath(projectToRemove.projectPath))
     });
 
     test('removes project by path and ignores other projects', () => {
@@ -38,14 +38,14 @@ suite('removeProjectFromJsonDb', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             TEST_JSON_DB_PATH,
             [projectOne, projectTwo])
 
         const result = multiProjectService.removeProjectFromJsonDb(projectTwo.projectPath)
-        assert.equal(false, error.isError(result))
-        assert.equal(true, multiProjectService.jsonDbIncludesPath(projectOne.projectPath))
-        assert.equal(false, multiProjectService.jsonDbIncludesPath(projectTwo.projectPath))
+        equal(false, isError(result))
+        equal(true, multiProjectService.jsonDbIncludesPath(projectOne.projectPath))
+        equal(false, multiProjectService.jsonDbIncludesPath(projectTwo.projectPath))
     });
 
     test('catches and returns error on failure', () => {
@@ -56,11 +56,11 @@ suite('removeProjectFromJsonDb', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [validProject])
 
         const result = multiProjectService.removeProjectFromJsonDb(validProject.projectPath)
-        assert.equal(true, error.isError(result))
+        equal(true, isError(result))
     });
 });

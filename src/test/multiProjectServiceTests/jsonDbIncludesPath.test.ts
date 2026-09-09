@@ -1,9 +1,9 @@
-import * as vscode from 'vscode';
-import * as _sut from '../../multiProject/multiProjectService'
-import { project } from '../../multiProject/interfaces/project';
 import dayjs from 'dayjs';
-import * as assert from 'assert';
-import * as error from '../../multiProject/error/error';
+import * as _sut from '../../multiProject/multiProjectService'
+import { ExtensionContext } from 'vscode';
+import { project } from '../../multiProject/interfaces/project';
+import { equal } from 'assert';
+import { isError } from '../../multiProject/error/error';
 
 suite('jsonDbIncludesPath', () => {
 
@@ -15,13 +15,13 @@ suite('jsonDbIncludesPath', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [validProject])
 
         const result = multiProjectService.jsonDbIncludesPath("hello/world")
-        assert.equal(true, result)
-        assert.equal(false, error.isError(result))
+        equal(true, result)
+        equal(false, isError(result))
     });
 
     test('returns false if path does not exist in db', () => {
@@ -32,22 +32,22 @@ suite('jsonDbIncludesPath', () => {
         }
 
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             [validProject])
 
         const result = multiProjectService.jsonDbIncludesPath("hello/other")
-        assert.equal(false, result)
-        assert.equal(false, error.isError(result))
+        equal(false, result)
+        equal(false, isError(result))
     });
 
     test('catches and returns error on failure', () => {
         let multiProjectService = new _sut.multiProjectService(
-            {} as vscode.ExtensionContext,
+            {} as ExtensionContext,
             {} as string,
             undefined as unknown as project[])
 
         const result = multiProjectService.jsonDbIncludesPath("hello/world")
-        assert.equal(true, error.isError(result))
+        equal(true, isError(result))
     });
 });
