@@ -4,7 +4,6 @@ import * as path from 'path';
 import * as harpoonAdd from "./harpoonAdd"
 import * as harpoonJump from "./harpoonJump"
 import * as harpoonOpen from "./harpoonOpen"
-import * as multiProjectService from "./multiProject/multiProjectService"
 import { project } from './multiProject/interfaces/project';
 import { multiProjectServiceFactory } from './multiProject/multiProjectServiceFactory';
 import * as crypto from 'crypto';
@@ -13,7 +12,7 @@ import { isError } from "./multiProject/error/error";
 export function activate(context: vscode.ExtensionContext) {
 	const GLOBAL_STORAGE_PATH: string = context.globalStorageUri.fsPath;
 	let harpoonListPath: string = String();
-	let internalErrorMessage: string = "BetterVSCHarpoon internal error"
+	let internalErrorMessage: string = "BetterVSCHarpoon: internal error"
 
 	const dbService = multiProjectServiceFactory.createMultiProjectService(context);
 	if (isError(dbService)) {
@@ -21,23 +20,30 @@ export function activate(context: vscode.ExtensionContext) {
 		return;
 	}
 	else {
+		const disableRelativeFilePath: boolean = vscode.workspace
+			.getConfiguration("BetterVSCHarpoon")
+			.get<boolean>("DisableRelativeFilePath", false);
+
 		// save
 		let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-		if (workspaceRoot == undefined) {
-			vscode.window.showErrorMessage(internalErrorMessage)
-			return;
+		// We dont care about the workspace root if we navigate with full paths
+		if (!disableRelativeFilePath) {
+			if (workspaceRoot == undefined) {
+				vscode.window.showErrorMessage("BetterVSCHarpoon: No Workspace root. You can disable relative path navigation in the plugin settings")
+				return;
+			}
 		}
 
-		var jsonDbContainsPath = dbService.jsonDbIncludesPath(workspaceRoot);
+		var jsonDbContainsPath = dbService.jsonDbIncludesPath(workspaceRoot!);
 		if (isError(jsonDbContainsPath)) {
 			vscode.window.showErrorMessage(`${jsonDbContainsPath.code} ${jsonDbContainsPath.message}`);
 			return;
 		}
 
 		if (jsonDbContainsPath) {
-			dbService.updateJsonDbProjectDate(workspaceRoot);
+			dbService.updateJsonDbProjectDate(workspaceRoot!);
 
-			let projectWithCurrentPath = dbService.getProjectFromJsonDbByPath(workspaceRoot)
+			let projectWithCurrentPath = dbService.getProjectFromJsonDbByPath(workspaceRoot!)
 			if (isError(projectWithCurrentPath)) {
 				vscode.window.showErrorMessage(`${projectWithCurrentPath.code} ${projectWithCurrentPath.message}`);
 				return;
@@ -50,10 +56,10 @@ export function activate(context: vscode.ExtensionContext) {
 			const newProject: project = {
 				globalDirectoryHash: crypto
 					.createHash('sha256')
-					.update(workspaceRoot)
+					.update(workspaceRoot!)
 					.digest('hex')
 					.toString(),
-				projectPath: workspaceRoot,
+				projectPath: workspaceRoot!,
 				lastOpenedDate: new Date()
 			}
 
