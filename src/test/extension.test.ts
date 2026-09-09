@@ -10,6 +10,7 @@ suite('multiProjectService tests', () => {
 
 	beforeEach(() => {
 		fs.writeFileSync(TEST_DB_PATH, '[]');
+
 	});
 
 	afterEach(() => {
@@ -18,13 +19,6 @@ suite('multiProjectService tests', () => {
 		}
 	});
 
-	test('garbageCollectJsonDb: finds expired projects', () => {
-		let mock = sinon.fake().alwaysCalledOn()
-		_sut.getJsonDbAsArray()
-
-		_sut.addProjectToJsonDb()
-		const result = _sut.garbageCollectJsonDb(GLOBAL_STORARGE_PATh, TEST_DB_PATH)
-
-		assert.equal(result, "")
+	test('getJsonDbPath: returns JsonDbPath', () => {
 	});
 });

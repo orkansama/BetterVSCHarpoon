@@ -4,12 +4,12 @@ import * as jsonFileLibary from "jsonfile"
 import path from 'path';
 import { project } from "./interfaces/project";
 import dayjs from "dayjs";
-import { error } from "./error/error";
+import { error, isError } from "./error/error";
 
 export class multiProjectService {
-    public _context: vscode.ExtensionContext;
-    public _jsonDbPath: string;
-    public _jsonProjectDataArray: project[];
+    private readonly _context: vscode.ExtensionContext;
+    private readonly _jsonDbPath: string;
+    private _jsonProjectDataArray: project[];
 
     public constructor(context: vscode.ExtensionContext, jsonDbPath: string, jsonProjectDataArray: project[]) {
         this._context = context
@@ -17,56 +17,8 @@ export class multiProjectService {
         this._jsonProjectDataArray = jsonProjectDataArray
     }
 
-    public getJsonDbPath() {
-        try {
-            return `${this._context.globalStorageUri.fsPath}${path.sep}JsonDb.json`;
-        }
-        catch {
-            let errorToReturn: error = {
-                code: "getJsonDbPath",
-                message: "failed to create list"
-            }
-
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
-        }
-    }
-
-    public createAndFillJsonDb() {
-        try {
-            if (!fs.existsSync(this._jsonDbPath)) {
-                fs.writeFileSync(this._jsonDbPath, '[]');
-            }
-        }
-        catch {
-            let errorToReturn: error = {
-                code: "createAndFillJsonDb",
-                message: "failed to verify or create db"
-            }
-
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
-        }
-    }
-
-    public getJsonDbAsArray() {
-        try {
-            let jsonDataArray: project[] = jsonFileLibary.readFileSync(this._jsonDbPath)
-            return jsonDataArray
-        }
-        catch {
-            let errorToReturn: error = {
-                code: "getJsonDbAsArray",
-                message: "failed to read db"
-            }
-
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
-        }
-    }
-
     // remove all entrys that are older than 60 days
-    public garbageCollectJsonDb() {
+    public garbageCollectJsonDb(): void | error {
         try {
             const expiredProjects = this.findExpiredProjects()
 
@@ -78,13 +30,12 @@ export class multiProjectService {
             });
         }
         catch {
-            let errorToReturn: error = {
+            let error: error = {
                 code: "garbageCollectJsonDb",
                 message: "failed to garbage collect db"
             }
 
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
+            return error;
         }
     }
 
@@ -99,64 +50,61 @@ export class multiProjectService {
         return expiredProjects;
     }
 
-    public addProjectToJsonDb(projectToAdd: project) {
+    public addProjectToJsonDb(projectToAdd: project): void | error {
         try {
             this._jsonProjectDataArray.push(projectToAdd)
             jsonFileLibary.writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
         }
         catch {
-            let errorToReturn: error = {
+            let error: error = {
                 code: "addProjectToJsonDb",
                 message: "failed to add project to db"
             }
 
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
+            return error;
         }
     }
 
-    public getProjectFromJsonDbByPath(path: string) {
+    public getProjectFromJsonDbByPath(path: string): project | error {
         try {
-            const searchResult: project | undefined = this._jsonProjectDataArray.find(x => x.projectPath == path);
+            const searchResult = this._jsonProjectDataArray.find(x => x.projectPath == path);
             if (searchResult == undefined) {
-                let errorToReturn: error = {
+                let error: error = {
                     code: "getProjectFromJsonDbByPath",
                     message: `desired path ${path} not found`
                 }
 
-                vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-                return;
+                return error;
             }
+
             return searchResult;
         }
         catch {
-            let errorToReturn: error = {
+            let error: error = {
                 code: "getProjectFromJsonDbByPath",
                 message: "failed to get project from db"
             }
 
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
+            return error;
         }
     }
 
-    public removeProjectFromJsonDb(projectPath: string) {
+    public removeProjectFromJsonDb(projectPath: string): void | error {
         try {
             this._jsonProjectDataArray = this._jsonProjectDataArray.filter(item => item.projectPath != projectPath)
             jsonFileLibary.writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
         }
         catch {
-            let errorToReturn: error = {
+            let error: error = {
                 code: "removeProjectFromJsonDb",
                 message: "failed to remove project from db"
             }
 
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
+            return error;
         }
     }
 
-    public jsonDbIncludesPath(path: string) {
+    public jsonDbIncludesPath(path: string): boolean | error {
         try {
             const search = this._jsonProjectDataArray.find(x => x.projectPath == path);
             if (search == undefined) {
@@ -166,40 +114,38 @@ export class multiProjectService {
             return true
         }
         catch {
-            let errorToReturn: error = {
+            let error: error = {
                 code: "jsonDbIncludesPath",
                 message: "failed to check db for project"
             }
 
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
+            return error;
         }
     }
 
-    public updateJsonDbProjectDate(path: string) {
+    public updateJsonDbProjectDate(path: string): void | error {
         try {
             const search = this._jsonProjectDataArray.find(x => x.projectPath == path);
             if (search == undefined) {
-                let errorToReturn: error = {
+                let error: error = {
                     code: "updateJsonDbProjectDate",
                     message: `desired path ${path} not found`
                 }
 
-                vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-                return;
+                return error;
             }
 
             search.lastOpenedDate = new Date()
             jsonFileLibary.writeFileSync(this._jsonDbPath, this._jsonProjectDataArray, { spaces: 2 })
         }
         catch {
-            let errorToReturn: error = {
+            let error: error = {
                 code: "updateJsonDbProjectDate",
                 message: "failed to update project date in db"
             }
 
-            vscode.window.showErrorMessage(`${errorToReturn.code} ${errorToReturn.message}`);
-            return;
+            return error;
         }
+
     }
 }
