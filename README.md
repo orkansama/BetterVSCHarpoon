@@ -11,12 +11,16 @@ Two modes to choose from: <br>
 *  **Relative file path mode** — marks stay valid as you move around the project (paths relative to the [workspace root](https://code.visualstudio.com/docs/editing/workspaces/workspaces))
 *  **Whole file mode** — pins the file by its full path
 
-Currently, only one global list is supported.
-
 <img width="483" height="144" alt="grafik" src="https://github.com/user-attachments/assets/42a18843-0b47-45c1-ba34-76c677d8c531" />
 <img width="530" height="112" alt="grafik" src="https://github.com/user-attachments/assets/e6846e68-86fe-4a15-b0cb-0649e694f2f3" />
 
 > Keep the last line of the marks file empty. Without it, the next mark you add won't be written on its own line.
+
+Two scopes to choose from: <br>
+*  **Project/workspace scope** — Harpoon list is specific to the current [workspace](https://code.visualstudio.com/docs/editing/workspaces/workspaces), separate from other projects
+*  **Global scope** — a single shared Harpoon list across all projects
+
+> Changing the scope (global vs. workspace list) requires a restart/reload of the window to take effect.
 
 ## Motivation
 
@@ -27,6 +31,7 @@ There are plenty of Harpoon extensions out there already but most are either unm
 - **Jump instantly** to any of up to 9 marked files via dedicated shortcuts
 - **Open the Harpoon file** directly to view or edit your marks as plain text
 - **Change the file save mode** between relative file path and whole file path
+- **Change the Harpoon scope** between a project/workspace list and a single global one
 
 ## Extension Settings
 
@@ -36,6 +41,7 @@ There are plenty of Harpoon extensions out there already but most are either unm
 | `bettervscharpoon.add_to_harpoon_list` | Add the current file to the Harpoon list | none |
 | `bettervscharpoon.navigate_1` | Jump to marked file 1 (goes up to `navigate_9`) | none |
 | `BetterVSCHarpoon.DisableRelativeFilePath` | Disable relative file path mode and use whole file path instead | `false` |
+| `BetterVSCHarpoon.UseGlobalList`           | Use a global list instead of a workspace-specific list (legacy behavior). Requires Restart/Reload Window | `false` |
 
 None of these commands come with a default keybinding — assign the ones you actually use.
 
