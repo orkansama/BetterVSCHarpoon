@@ -7,7 +7,7 @@ harpoon file loss
 
 To migrate the data to your new harpoon list, copy them and paste them in
 the new harpoon file that BetterVSCHarpoon will create for you.
-After 60 Days, harpoon lists will start to delete themselves to guard
+After 60 unused Days, harpoon lists will start to delete themselves to guard
 your system for gargabe
 
 ### Features
