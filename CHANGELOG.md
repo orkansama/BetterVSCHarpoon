@@ -1,3 +1,19 @@
+## [3.0.0](https://github.com/orkansama/BetterVSCHarpoon/compare/v2.0.2...v3.0.0) (2026-09-17)
+
+### ⚠ BREAKING CHANGES
+
+* Global list is now not longer the default, this can lead to
+harpoon file loss
+
+To migrate the data to your new harpoon list, copy them and paste them in
+the new harpoon file that BetterVSCHarpoon will create for you.
+After 60 Days, harpoon lists will start to delete themselves to guard
+your system for gargabe
+
+### Features
+
+* add multi project harpoon lists ([f41f110](https://github.com/orkansama/BetterVSCHarpoon/commit/f41f110ddcedaba6b7fed8205c66d09092bd270c))
+
 ## [2.0.2](https://github.com/orkansama/BetterVSCHarpoon/compare/v2.0.1...v2.0.2) (2026-09-02)
 
 ### Bug Fixes
