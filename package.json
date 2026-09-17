@@ -2,7 +2,7 @@
   "name": "bettervscharpoon",
   "displayName": "BetterVSCHarpoon",
   "description": "Harpoon for VSC, made txt simple!",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "icon": "assets/BetterVSCHarpoon_Icon.png",
   "engines": {
     "vscode": "^1.125.0"
@@ -69,6 +69,11 @@
             "type": "boolean",
             "default": false,
             "description": "Use absolute paths instead of paths relative to the workspace root. (legacy behavior)"
+          },
+          "BetterVSCHarpoon.UseGlobalList": {
+            "type": "boolean",
+            "default": false,
+            "description": "Use a global list instead of a workspace-specific list. (legacy behavior). Requires Restart/Reload Window."
           }
         }
       }
@@ -114,6 +119,8 @@
   },
   "publisher": "OrkanGoekcen",
   "dependencies": {
-    "conventional-changelog-conventionalcommits": "^9.3.1"
+    "conventional-changelog-conventionalcommits": "^9.3.1",
+    "dayjs": "^1.11.23",
+    "zod": "^4.6.5"
   }
 }
